@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ossim.controllers.DashboardController"
+            stylesheets="@../css/style.css">
+
+    <!-- ===== TOP STATUS BAR ===== -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="10">
+            <Label text="⚙ OS SIMULATOR" style="-fx-text-fill: #cdd6f4; -fx-font-size: 15px; -fx-font-weight: bold;" />
+            <HBox HBox.hgrow="ALWAYS" />
+            <Label text="● System Ready" styleClass="status-ready" />
+        </HBox>
+    </top>
+
+    <!-- ===== SIDEBAR ===== -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="240">
+            <Label text="NAVIGATION" styleClass="sidebar-title" />
+
+            <Button text="🏠  Dashboard" styleClass="sidebar-button, sidebar-button-active" maxWidth="Infinity" />
+            <Button text="🖥  CPU Scheduling" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button text="🧠  Memory Management" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button text="📄  Page Replacement" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button text="💿  Disk Scheduling" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button text="🔒  Deadlock Detection" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button text="📊  Comparison" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button text="ℹ  About" styleClass="sidebar-button" maxWidth="Infinity" />
+        </VBox>
+    </left>
+
+    <!-- ===== MAIN WORKSPACE ===== -->
+    <center>
+        <VBox styleClass="main-workspace" spacing="20">
+            <Label text="Dashboard" styleClass="workspace-title" />
+            <Label text="Select a module from the sidebar to begin" styleClass="workspace-subtitle" />
+
+            <FlowPane hgap="20" vgap="20">
+
+                <VBox styleClass="dashboard-card" prefWidth="260" prefHeight="140" spacing="8">
+                    <Label text="🖥 CPU Scheduling" styleClass="card-title" />
+                    <Label text="4 Algorithms" styleClass="card-subtitle" />
+                    <Label text="FCFS • SJF • Priority • RR" styleClass="card-subtitle" />
+                    <VBox VBox.vgrow="ALWAYS" />
+                    <Label text="OPEN →" styleClass="card-link" />
+                </VBox>
+
+                <VBox styleClass="dashboard-card" prefWidth="260" prefHeight="140" spacing="8">
+                    <Label text="🧠 Memory Management" styleClass="card-title" />
+                    <Label text="3 Algorithms" styleClass="card-subtitle" />
+                    <Label text="First Fit • Best Fit • Worst Fit" styleClass="card-subtitle" />
+                    <VBox VBox.vgrow="ALWAYS" />
+                    <Label text="OPEN →" styleClass="card-link" />
+                </VBox>
+
+                <VBox styleClass="dashboard-card" prefWidth="260" prefHeight="140" spacing="8">
+                    <Label text="📄 Page Replacement" styleClass="card-title" />
+                    <Label text="3 Algorithms" styleClass="card-subtitle" />
+                    <Label text="FIFO • LRU • Optimal" styleClass="card-subtitle" />
+                    <VBox VBox.vgrow="ALWAYS" />
+                    <Label text="OPEN →" styleClass="card-link" />
+                </VBox>
+
+                <VBox styleClass="dashboard-card" prefWidth="260" prefHeight="140" spacing="8">
+                    <Label text="💿 Disk Scheduling" styleClass="card-title" />
+                    <Label text="4 Algorithms" styleClass="card-subtitle" />
+                    <Label text="FCFS • SSTF • SCAN • C-SCAN" styleClass="card-subtitle" />
+                    <VBox VBox.vgrow="ALWAYS" />
+                    <Label text="OPEN →" styleClass="card-link" />
+                </VBox>
+
+                <VBox styleClass="dashboard-card" prefWidth="260" prefHeight="140" spacing="8">
+                    <Label text="🔒 Deadlock Detection" styleClass="card-title" />
+                    <Label text="Banker's Algorithm" styleClass="card-subtitle" />
+                    <Label text="Safe / Unsafe State" styleClass="card-subtitle" />
+                    <VBox VBox.vgrow="ALWAYS" />
+                    <Label text="OPEN →" styleClass="card-link" />
+                </VBox>
+
+                <VBox styleClass="dashboard-card" prefWidth="260" prefHeight="140" spacing="8">
+                    <Label text="📊 Comparison" styleClass="card-title" />
+                    <Label text="Performance Analysis" styleClass="card-subtitle" />
+                    <Label text="Compare Algorithms" styleClass="card-subtitle" />
+                    <VBox VBox.vgrow="ALWAYS" />
+                    <Label text="OPEN →" styleClass="card-link" />
+                </VBox>
+
+            </FlowPane>
+        </VBox>
+    </center>
+
+</BorderPane>
