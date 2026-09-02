@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ossim.controllers.CpuController"
+            stylesheets="@../css/style.css">
+
+    <!-- ===== TOP STATUS BAR ===== -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="10">
+            <Button text="← Back to Dashboard" fx:id="backButton" styleClass="sidebar-button" />
+            <Label text="🖥 CPU SCHEDULING" style="-fx-text-fill: #cdd6f4; -fx-font-size: 15px; -fx-font-weight: bold;" />
+            <HBox HBox.hgrow="ALWAYS" />
+            <Label text="● System Ready" styleClass="status-ready" />
+        </HBox>
+    </top>
+
+    <!-- ===== MAIN WORKSPACE ===== -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #1e1e2e; -fx-background: #1e1e2e;">
+            <VBox styleClass="main-workspace" spacing="20">
+
+                <Label text="CPU Scheduling Simulator" styleClass="workspace-title" />
+                <Label text="Enter processes, choose an algorithm, and run the simulation" styleClass="workspace-subtitle" />
+
+                <!-- ===== INPUT SECTION ===== -->
+                <VBox spacing="10">
+                    <Label text="Process Input" styleClass="card-title" />
+
+                    <TableView fx:id="processTable" prefHeight="180">
+                        <columns>
+                            <TableColumn fx:id="colProcessId" text="Process ID" prefWidth="120" />
+                            <TableColumn fx:id="colArrivalTime" text="Arrival Time" prefWidth="120" />
+                            <TableColumn fx:id="colBurstTime" text="Burst Time" prefWidth="120" />
+                            <TableColumn fx:id="colPriority" text="Priority" prefWidth="120" />
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="10">
+                        <Button text="+ Add Process" fx:id="addProcessButton" styleClass="dashboard-card" />
+                        <Button text="− Remove Selected" fx:id="removeProcessButton" styleClass="dashboard-card" />
+                        <Button text="Clear All" fx:id="clearButton" styleClass="dashboard-card" />
+                        <Button text="Load Example" fx:id="loadExampleButton" styleClass="dashboard-card" />
+                    </HBox>
+                </VBox>
+
+                <!-- ===== ALGORITHM SELECTION ===== -->
+                <VBox spacing="10">
+                    <Label text="Algorithm Selection" styleClass="card-title" />
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ComboBox fx:id="algorithmSelector" prefWidth="220" />
+                        <Label text="Time Quantum:" fx:id="quantumLabel" styleClass="card-subtitle" />
+                        <TextField fx:id="quantumField" prefWidth="60" text="2" />
+                        <Button text="▶ RUN SIMULATION" fx:id="runButton" style="-fx-background-color: #89b4fa; -fx-text-fill: #1e1e2e; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 6; -fx-cursor: hand;" />
+                    </HBox>
+                </VBox>
+
+                <!-- ===== METRICS ===== -->
+                <VBox spacing="10" fx:id="metricsSection" visible="false" managed="false">
+                    <Label text="Performance Metrics" styleClass="card-title" />
+                    <HBox spacing="20">
+                        <VBox styleClass="dashboard-card" prefWidth="220">
+                            <Label text="Avg Waiting Time" styleClass="card-subtitle" />
+                            <Label fx:id="avgWaitingLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                        <VBox styleClass="dashboard-card" prefWidth="220">
+                            <Label text="Avg Turnaround Time" styleClass="card-subtitle" />
+                            <Label fx:id="avgTurnaroundLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                        <VBox styleClass="dashboard-card" prefWidth="220">
+                            <Label text="Avg Response Time" styleClass="card-subtitle" />
+                            <Label fx:id="avgResponseLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- ===== GANTT CHART ===== -->
+                <VBox spacing="10" fx:id="ganttSection" visible="false" managed="false">
+                    <Label text="Gantt Chart" styleClass="card-title" />
+                    <ScrollPane fitToHeight="true" style="-fx-background-color: #313244; -fx-background: #313244;" styleClass="dashboard-card">
+                        <VBox fx:id="ganttContainer" style="-fx-padding: 15;" />
+                    </ScrollPane>
+                </VBox>
+
+                <!-- ===== RESULTS TABLE ===== -->
+                <VBox spacing="10" fx:id="resultsSection" visible="false" managed="false">
+                    <Label text="Process Statistics" styleClass="card-title" />
+                    <TableView fx:id="resultsTable" prefHeight="180">
+                        <columns>
+                            <TableColumn fx:id="colResultId" text="PID" prefWidth="90" />
+                            <TableColumn fx:id="colResultArrival" text="Arrival" prefWidth="90" />
+                            <TableColumn fx:id="colResultBurst" text="Burst" prefWidth="90" />
+                            <TableColumn fx:id="colResultCompletion" text="Completion" prefWidth="100" />
+                            <TableColumn fx:id="colResultWaiting" text="Waiting" prefWidth="90" />
+                            <TableColumn fx:id="colResultTurnaround" text="Turnaround" prefWidth="100" />
+                            <TableColumn fx:id="colResultResponse" text="Response" prefWidth="90" />
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- ===== EXPLANATION ===== -->
+                <VBox spacing="10" styleClass="dashboard-card">
+                    <Label text="Algorithm Explanation" styleClass="card-title" />
+                    <Label fx:id="explanationLabel" text="Select an algorithm to see its explanation."
+                           wrapText="true" styleClass="card-subtitle" />
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

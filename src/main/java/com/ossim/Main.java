@@ -10,12 +10,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CpuScheduling.fxml"));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 1100, 650);
+        Scene scene = new Scene(root, 1100, 750);
 
-        primaryStage.setTitle("OS Simulator");
+        primaryStage.setTitle("OS Simulator - CPU Test");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

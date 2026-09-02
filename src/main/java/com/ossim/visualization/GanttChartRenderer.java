@@ -40,7 +40,7 @@ public class GanttChartRenderer {
         HBox labelRow = new HBox(0);
 
         Map<String, String> colorAssignment = new LinkedHashMap<>();
-        int colorIndex = 0;
+        // int colorIndex = 0;
 
         for (GanttEntry entry : entries) {
 
