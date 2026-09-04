@@ -95,3 +95,18 @@
   -fx-text-fill: #a6e3a1;
   -fx-font-size: 12px;
 }
+
+/* ===== Small action buttons (Add/Remove/Clear/Load Example) ===== */
+Button.dashboard-card {
+  -fx-text-fill: #cdd6f4;
+  -fx-font-size: 12px;
+  -fx-font-weight: bold;
+  -fx-background-color: #313244;
+  -fx-background-radius: 8;
+  -fx-padding: 10 16 10 16;
+  -fx-cursor: hand;
+}
+
+Button.dashboard-card:hover {
+  -fx-background-color: #45475a;
+}

@@ -66,8 +66,8 @@ public class CpuController {
     @FXML
     public void initialize() {
         setupProcessTable();
-        setupAlgorithmSelector();
         setupExplanations();
+        setupAlgorithmSelector();
         setupResultsTable();
 
         addProcessButton.setOnAction(e -> onAddProcess());
