@@ -1,5 +1,6 @@
 package com.ossim.controllers;
 
+import com.ossim.Main;
 import com.ossim.algorithms.cpu.*;
 import com.ossim.models.CpuSchedulingResult;
 import com.ossim.models.Process;
@@ -8,9 +9,11 @@ import com.ossim.visualization.GanttChartRenderer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -76,6 +79,10 @@ public class CpuController {
         loadExampleButton.setOnAction(e -> onLoadExample());
         runButton.setOnAction(e -> onRunSimulation());
 
+        if (backButton != null) {
+            backButton.setOnAction(e -> Main.switchScreen("/fxml/Dashboard.fxml"));
+        }
+
         // Time Quantum field only matters for Round Robin — hidden otherwise
         quantumLabel.setVisible(false);
         quantumLabel.setManaged(false);
@@ -88,8 +95,21 @@ public class CpuController {
         colArrivalTime.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
         colBurstTime.setCellValueFactory(new PropertyValueFactory<>("burstTime"));
         colPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
+
+        // Make cells editable via double-click
+        colProcessId.setCellFactory(TextFieldTableCell.forTableColumn());
+        colArrivalTime.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colBurstTime.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colPriority.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+        // Commit edited values back into the Process object
+        colProcessId.setOnEditCommit(e -> e.getRowValue().setProcessId(e.getNewValue()));
+        colArrivalTime.setOnEditCommit(e -> e.getRowValue().setArrivalTime(e.getNewValue()));
+        colBurstTime.setOnEditCommit(e -> e.getRowValue().setBurstTime(e.getNewValue()));
+        colPriority.setOnEditCommit(e -> e.getRowValue().setPriority(e.getNewValue()));
+
         processTable.setItems(processList);
-        processTable.setEditable(false); // inline editing wired in a later polish milestone
+        processTable.setEditable(true);
     }
 
     private void setupAlgorithmSelector() {
