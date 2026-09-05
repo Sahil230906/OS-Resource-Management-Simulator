@@ -7,14 +7,18 @@ import javafx.scene.control.Button;
 public class DashboardController {
 
     @FXML private Button cpuButton;
+    @FXML private Button comparisonButton;
 
     @FXML
     public void initialize() {
-        // Only CPU Scheduling is wired for now — other modules will be
-        // connected here as they're built in later milestones (Memory,
-        // Paging, Disk, Deadlock, Comparison).
+        // Sidebar navigation wiring — other modules (Memory, Paging, Disk,
+        // Deadlock) will be connected here as they're built in later milestones.
         if (cpuButton != null) {
             cpuButton.setOnAction(e -> Main.switchScreen("/fxml/CpuScheduling.fxml"));
+        }
+
+        if (comparisonButton != null) {
+            comparisonButton.setOnAction(e -> Main.switchScreen("/fxml/Comparison.fxml"));
         }
 
         System.out.println("Dashboard loaded successfully.");

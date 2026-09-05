@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ossim.controllers.ComparisonController"
+            stylesheets="@../css/style.css">
+
+    <!-- ===== TOP STATUS BAR ===== -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="10">
+            <Button text="← Back to Dashboard" fx:id="backButton" styleClass="sidebar-button" />
+            <Label text="📊 COMPARISON" style="-fx-text-fill: #cdd6f4; -fx-font-size: 15px; -fx-font-weight: bold;" />
+            <HBox HBox.hgrow="ALWAYS" />
+            <Label text="● System Ready" styleClass="status-ready" />
+        </HBox>
+    </top>
+
+    <!-- ===== MAIN WORKSPACE ===== -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #1e1e2e; -fx-background: #1e1e2e;">
+            <VBox styleClass="main-workspace" spacing="20">
+
+                <Label text="Algorithm Comparison" styleClass="workspace-title" />
+                <Label text="Run multiple CPU scheduling algorithms on the same input and compare performance"
+                       styleClass="workspace-subtitle" />
+
+                <!-- ===== PROCESS INPUT ===== -->
+                <VBox spacing="10">
+                    <Label text="Process Input" styleClass="card-title" />
+
+                    <TableView fx:id="processTable" prefHeight="180">
+                        <columns>
+                            <TableColumn fx:id="colProcessId" text="Process ID" prefWidth="120" />
+                            <TableColumn fx:id="colArrivalTime" text="Arrival Time" prefWidth="120" />
+                            <TableColumn fx:id="colBurstTime" text="Burst Time" prefWidth="120" />
+                            <TableColumn fx:id="colPriority" text="Priority" prefWidth="120" />
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="10">
+                        <Button text="+ Add Process" fx:id="addProcessButton" styleClass="dashboard-card" />
+                        <Button text="− Remove Selected" fx:id="removeProcessButton" styleClass="dashboard-card" />
+                        <Button text="Clear All" fx:id="clearButton" styleClass="dashboard-card" />
+                        <Button text="Load Example" fx:id="loadExampleButton" styleClass="dashboard-card" />
+                    </HBox>
+                </VBox>
+
+                <!-- ===== ALGORITHM SELECTION ===== -->
+                <VBox spacing="10">
+                    <Label text="Select Algorithms to Compare" styleClass="card-title" />
+                    <HBox spacing="20" alignment="CENTER_LEFT">
+                        <CheckBox fx:id="fcfsCheck" text="FCFS" selected="true" style="-fx-text-fill: #cdd6f4;" />
+                        <CheckBox fx:id="sjfCheck" text="SJF" selected="true" style="-fx-text-fill: #cdd6f4;" />
+                        <CheckBox fx:id="priorityCheck" text="Priority" selected="true" style="-fx-text-fill: #cdd6f4;" />
+                        <CheckBox fx:id="rrCheck" text="Round Robin" selected="true" style="-fx-text-fill: #cdd6f4;" />
+                        <Label text="Quantum:" style="-fx-text-fill: #a6adc8;" />
+                        <TextField fx:id="quantumField" prefWidth="50" text="2" />
+                    </HBox>
+                    <Button text="▶ COMPARE" fx:id="compareButton"
+                            style="-fx-background-color: #89b4fa; -fx-text-fill: #1e1e2e; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 6; -fx-cursor: hand;" />
+                </VBox>
+
+                <!-- ===== COMPARISON TABLE ===== -->
+                <VBox spacing="10" fx:id="resultsSection" visible="false" managed="false">
+                    <Label text="Comparison Results" styleClass="card-title" />
+                    <TableView fx:id="comparisonTable" prefHeight="180">
+                        <columns>
+                            <TableColumn fx:id="colAlgoName" text="Algorithm" prefWidth="180" />
+                            <TableColumn fx:id="colAvgWaiting" text="Avg Waiting Time" prefWidth="180" />
+                            <TableColumn fx:id="colAvgTurnaround" text="Avg Turnaround Time" prefWidth="180" />
+                            <TableColumn fx:id="colAvgResponse" text="Avg Response Time" prefWidth="180" />
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- ===== WINNER CALLOUT ===== -->
+                <VBox spacing="8" fx:id="winnerSection" styleClass="dashboard-card" visible="false" managed="false">
+                    <Label text="🏆 BEST PERFORMANCE" style="-fx-text-fill: #f9e2af; -fx-font-size: 16px; -fx-font-weight: bold;" />
+                    <Label fx:id="winnerNameLabel" text="-" styleClass="workspace-title" />
+                    <Label fx:id="winnerReasonLabel" text="-" styleClass="card-subtitle" />
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

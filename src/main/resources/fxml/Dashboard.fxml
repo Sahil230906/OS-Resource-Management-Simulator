@@ -33,7 +33,7 @@
             <Button text="📄  Page Replacement" styleClass="sidebar-button" maxWidth="Infinity" />
             <Button text="💿  Disk Scheduling" styleClass="sidebar-button" maxWidth="Infinity" />
             <Button text="🔒  Deadlock Detection" styleClass="sidebar-button" maxWidth="Infinity" />
-            <Button text="📊  Comparison" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button fx:id="comparisonButton" text="📊  Comparison" styleClass="sidebar-button" maxWidth="Infinity" />
             <Button text="ℹ  About" styleClass="sidebar-button" maxWidth="Infinity" />
         </VBox>
     </left>
