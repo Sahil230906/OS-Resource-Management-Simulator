@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ossim.controllers.MemoryController"
+            stylesheets="@../css/style.css">
+
+    <!-- ===== TOP STATUS BAR ===== -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="10">
+            <Button text="← Back to Dashboard" fx:id="backButton" styleClass="sidebar-button" />
+            <Label text="🧠 MEMORY MANAGEMENT" style="-fx-text-fill: #cdd6f4; -fx-font-size: 15px; -fx-font-weight: bold;" />
+            <HBox HBox.hgrow="ALWAYS" />
+            <Label text="● System Ready" styleClass="status-ready" />
+        </HBox>
+    </top>
+
+    <!-- ===== MAIN WORKSPACE ===== -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #1e1e2e; -fx-background: #1e1e2e;">
+            <VBox styleClass="main-workspace" spacing="20">
+
+                <Label text="Memory Management Simulator" styleClass="workspace-title" />
+                <Label text="Define partitions and processes, choose an algorithm, and run the allocation" styleClass="workspace-subtitle" />
+
+                <!-- ===== PARTITION INPUT ===== -->
+                <VBox spacing="10">
+                    <Label text="Partition Input" styleClass="card-title" />
+
+                    <TableView fx:id="partitionTable" prefHeight="150">
+                        <columns>
+                            <TableColumn fx:id="colBlockId" text="Block ID" prefWidth="150" />
+                            <TableColumn fx:id="colBlockSize" text="Size (MB)" prefWidth="150" />
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="10">
+                        <Button text="+ Add Partition" fx:id="addPartitionButton" styleClass="dashboard-card" />
+                        <Button text="− Remove Selected" fx:id="removePartitionButton" styleClass="dashboard-card" />
+                        <Button text="Clear All" fx:id="clearPartitionsButton" styleClass="dashboard-card" />
+                        <Button text="Load Example" fx:id="loadPartitionExampleButton" styleClass="dashboard-card" />
+                    </HBox>
+                </VBox>
+
+                <!-- ===== PROCESS INPUT ===== -->
+                <VBox spacing="10">
+                    <Label text="Process Input" styleClass="card-title" />
+
+                    <TableView fx:id="memProcessTable" prefHeight="150">
+                        <columns>
+                            <TableColumn fx:id="colMemProcessId" text="Process ID" prefWidth="150" />
+                            <TableColumn fx:id="colMemProcessSize" text="Size (MB)" prefWidth="150" />
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="10">
+                        <Button text="+ Add Process" fx:id="addMemProcessButton" styleClass="dashboard-card" />
+                        <Button text="− Remove Selected" fx:id="removeMemProcessButton" styleClass="dashboard-card" />
+                        <Button text="Clear All" fx:id="clearMemProcessesButton" styleClass="dashboard-card" />
+                        <Button text="Load Example" fx:id="loadMemProcessExampleButton" styleClass="dashboard-card" />
+                    </HBox>
+                </VBox>
+
+                <!-- ===== ALGORITHM SELECTION ===== -->
+                <VBox spacing="10">
+                    <Label text="Algorithm Selection" styleClass="card-title" />
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ComboBox fx:id="algorithmSelector" prefWidth="220" />
+                        <Button text="▶ RUN SIMULATION" fx:id="runButton" style="-fx-background-color: #89b4fa; -fx-text-fill: #1e1e2e; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 6; -fx-cursor: hand;" />
+                    </HBox>
+                </VBox>
+
+                <!-- ===== SUMMARY STATS ===== -->
+                <VBox spacing="10" fx:id="metricsSection" visible="false" managed="false">
+                    <Label text="Allocation Summary" styleClass="card-title" />
+                    <HBox spacing="20">
+                        <VBox styleClass="dashboard-card" prefWidth="200">
+                            <Label text="Allocated" styleClass="card-subtitle" />
+                            <Label fx:id="allocatedCountLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                        <VBox styleClass="dashboard-card" prefWidth="200">
+                            <Label text="Failed" styleClass="card-subtitle" />
+                            <Label fx:id="failedCountLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                        <VBox styleClass="dashboard-card" prefWidth="200">
+                            <Label text="Internal Fragmentation" styleClass="card-subtitle" />
+                            <Label fx:id="totalFragLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                        <VBox styleClass="dashboard-card" prefWidth="200">
+                            <Label text="Total Free Memory" styleClass="card-subtitle" />
+                            <Label fx:id="totalFreeLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- ===== MEMORY MAP ===== -->
+                <VBox spacing="10" fx:id="memoryMapSection" visible="false" managed="false">
+                    <Label text="Memory Map" styleClass="card-title" />
+                    <ScrollPane fitToWidth="true" style="-fx-background-color: #313244; -fx-background: #313244;" styleClass="dashboard-card">
+                        <VBox fx:id="memoryMapContainer" style="-fx-padding: 15;" alignment="CENTER" />
+                    </ScrollPane>
+                </VBox>
+
+                <!-- ===== RESULTS TABLE ===== -->
+                <VBox spacing="10" fx:id="resultsSection" visible="false" managed="false">
+                    <Label text="Process Allocation Results" styleClass="card-title" />
+                    <TableView fx:id="resultsTable" prefHeight="180">
+                        <columns>
+                            <TableColumn fx:id="colResultProcessId" text="PID" prefWidth="90" />
+                            <TableColumn fx:id="colResultSize" text="Size (MB)" prefWidth="100" />
+                            <TableColumn fx:id="colResultAllocated" text="Allocated" prefWidth="90" />
+                            <TableColumn fx:id="colResultBlockId" text="Block" prefWidth="90" />
+                            <TableColumn fx:id="colResultFragmentation" text="Fragmentation" prefWidth="110" />
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- ===== EXPLANATION ===== -->
+                <VBox spacing="10" styleClass="dashboard-card">
+                    <Label text="Algorithm Explanation" styleClass="card-title" />
+                    <Label fx:id="explanationLabel" text="Select an algorithm to see its explanation."
+                           wrapText="true" styleClass="card-subtitle" />
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
