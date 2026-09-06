@@ -9,10 +9,11 @@ public class DashboardController {
     @FXML private Button cpuButton;
     @FXML private Button comparisonButton;
     @FXML private Button memoryButton;
+    @FXML private Button pageButton;
 
     @FXML
     public void initialize() {
-        // Sidebar navigation wiring — other modules (Paging, Disk,
+        // Sidebar navigation wiring — other modules (Disk,
         // Deadlock) will be connected here as they're built in later milestones.
         if (cpuButton != null) {
             cpuButton.setOnAction(e -> Main.switchScreen("/fxml/CpuScheduling.fxml"));
@@ -24,6 +25,10 @@ public class DashboardController {
 
         if (memoryButton != null) {
             memoryButton.setOnAction(e -> Main.switchScreen("/fxml/MemoryManagement.fxml"));
+        }
+
+        if (pageButton != null) {
+            pageButton.setOnAction(e -> Main.switchScreen("/fxml/PageReplacement.fxml"));
         }
 
         System.out.println("Dashboard loaded successfully.");

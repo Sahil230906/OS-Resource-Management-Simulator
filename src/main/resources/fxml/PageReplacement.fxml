@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ossim.controllers.PageController"
+            stylesheets="@../css/style.css">
+
+    <!-- ===== TOP STATUS BAR ===== -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="10">
+            <Button text="← Back to Dashboard" fx:id="backButton" styleClass="sidebar-button" />
+            <Label text="📄 PAGE REPLACEMENT" style="-fx-text-fill: #cdd6f4; -fx-font-size: 15px; -fx-font-weight: bold;" />
+            <HBox HBox.hgrow="ALWAYS" />
+            <Label text="● System Ready" styleClass="status-ready" />
+        </HBox>
+    </top>
+
+    <!-- ===== MAIN WORKSPACE ===== -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #1e1e2e; -fx-background: #1e1e2e;">
+            <VBox styleClass="main-workspace" spacing="20">
+
+                <Label text="Page Replacement Simulator" styleClass="workspace-title" />
+                <Label text="Enter a reference string and frame count, choose an algorithm, and run the simulation" styleClass="workspace-subtitle" />
+
+                <!-- ===== REFERENCE STRING INPUT ===== -->
+                <VBox spacing="10">
+                    <Label text="Reference String" styleClass="card-title" />
+
+                    <TableView fx:id="referenceTable" prefHeight="150">
+                        <columns>
+                            <TableColumn fx:id="colPageNumber" text="Page Number" prefWidth="200" />
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="10">
+                        <Button text="+ Add Page" fx:id="addRefButton" styleClass="dashboard-card" />
+                        <Button text="− Remove Selected" fx:id="removeRefButton" styleClass="dashboard-card" />
+                        <Button text="Clear All" fx:id="clearRefButton" styleClass="dashboard-card" />
+                        <Button text="Load Example" fx:id="loadRefExampleButton" styleClass="dashboard-card" />
+                    </HBox>
+                </VBox>
+
+                <!-- ===== FRAME COUNT + ALGORITHM SELECTION ===== -->
+                <VBox spacing="10">
+                    <Label text="Algorithm Selection" styleClass="card-title" />
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="Frame Count:" styleClass="card-subtitle" />
+                        <TextField fx:id="frameCountField" prefWidth="60" text="3" />
+                        <ComboBox fx:id="algorithmSelector" prefWidth="180" />
+                        <Button text="▶ RUN SIMULATION" fx:id="runButton" style="-fx-background-color: #89b4fa; -fx-text-fill: #1e1e2e; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 6; -fx-cursor: hand;" />
+                    </HBox>
+                </VBox>
+
+                <!-- ===== SUMMARY STATS ===== -->
+                <VBox spacing="10" fx:id="metricsSection" visible="false" managed="false">
+                    <Label text="Hit / Fault Summary" styleClass="card-title" />
+                    <HBox spacing="20">
+                        <VBox styleClass="dashboard-card" prefWidth="200">
+                            <Label text="Hits" styleClass="card-subtitle" />
+                            <Label fx:id="hitCountLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                        <VBox styleClass="dashboard-card" prefWidth="200">
+                            <Label text="Faults" styleClass="card-subtitle" />
+                            <Label fx:id="faultCountLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                        <VBox styleClass="dashboard-card" prefWidth="200">
+                            <Label text="Hit Ratio" styleClass="card-subtitle" />
+                            <Label fx:id="hitRatioLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                        <VBox styleClass="dashboard-card" prefWidth="200">
+                            <Label text="Fault Ratio" styleClass="card-subtitle" />
+                            <Label fx:id="faultRatioLabel" text="-" styleClass="workspace-title" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- ===== FRAME TIMELINE ===== -->
+                <VBox spacing="10" fx:id="timelineSection" visible="false" managed="false">
+                    <Label text="Frame Timeline" styleClass="card-title" />
+                    <ScrollPane fitToHeight="true" fitToWidth="false" style="-fx-background-color: #313244; -fx-background: #313244;" styleClass="dashboard-card">
+                        <HBox fx:id="timelineContainer" style="-fx-padding: 15;" />
+                    </ScrollPane>
+                </VBox>
+
+                <!-- ===== RESULTS TABLE ===== -->
+                <VBox spacing="10" fx:id="resultsSection" visible="false" managed="false">
+                    <Label text="Step-by-Step Results" styleClass="card-title" />
+                    <TableView fx:id="resultsTable" prefHeight="180">
+                        <columns>
+                            <TableColumn fx:id="colStepPage" text="Page" prefWidth="90" />
+                            <TableColumn fx:id="colStepOutcome" text="Outcome" prefWidth="100" />
+                            <TableColumn fx:id="colStepFrames" text="Frame State" prefWidth="200" />
+                            <TableColumn fx:id="colStepEvicted" text="Evicted" prefWidth="90" />
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- ===== EXPLANATION ===== -->
+                <VBox spacing="10" styleClass="dashboard-card">
+                    <Label text="Algorithm Explanation" styleClass="card-title" />
+                    <Label fx:id="explanationLabel" text="Select an algorithm to see its explanation."
+                           wrapText="true" styleClass="card-subtitle" />
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
