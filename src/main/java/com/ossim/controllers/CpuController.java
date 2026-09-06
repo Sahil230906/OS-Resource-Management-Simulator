@@ -144,19 +144,28 @@ public class CpuController {
     }
 
     private void setupExplanations() {
-        explanations.put("FCFS",
+               explanations.put("FCFS",
                 "First Come First Serve executes processes strictly in the order they arrive. " +
-                "Simple to implement, but a long process can delay all processes behind it (convoy effect).");
+                "Simple to implement, but a long process can delay all processes behind it (convoy effect). " +
+                "Time complexity is O(n log n) for sorting by arrival time. Common in batch systems and any " +
+                "first-come-first-served queue, like a single checkout line.");
         explanations.put("SJF",
                 "Shortest Job First always picks the process with the smallest burst time among those " +
-                "that have arrived. Minimizes average waiting time, but can starve longer processes.");
+                "that have arrived. Minimizes average waiting time, but can starve longer processes. " +
+                "Time complexity is O(n log n) when burst times are known in advance. Rarely used as-is in " +
+                "real operating systems since exact burst time isn't known ahead of execution — real systems " +
+                "approximate it by predicting from past behavior.");
         explanations.put("Priority Scheduling",
                 "Each process is assigned a priority; the process with the highest priority (lowest number) " +
-                "among arrived processes runs next. Low-priority processes may starve indefinitely.");
+                "among arrived processes runs next. Low-priority processes may starve indefinitely. " +
+                "Time complexity is O(n log n). Used in real-time and embedded systems where certain tasks " +
+                "(like handling a hardware interrupt) must always preempt lower-priority work.");
         explanations.put("Round Robin",
                 "Each process receives a fixed time quantum. If it doesn't finish within that quantum, " +
                 "it is placed at the back of the ready queue. Fair and responsive, but overhead increases " +
-                "if the quantum is too small.");
+                "if the quantum is too small. Time complexity is O(n) per full cycle through the ready queue. " +
+                "The basis of time-sharing systems — most general-purpose OS schedulers, including modern " +
+                "Linux and Windows, use some variant of this for interactive processes.");
     }
 
     // ===== Button Actions =====

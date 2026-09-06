@@ -121,22 +121,30 @@ public class DiskController {
     }
 
     private void setupExplanations() {
-        explanations.put("FCFS",
+                explanations.put("FCFS",
                 "Services track requests strictly in the order they arrive, with no reordering at all. " +
                 "Simple and fair in arrival order, but can cause large, wasteful head movements if requests " +
-                "are scattered across the disk.");
+                "are scattered across the disk. No extra computation beyond servicing requests in order, so " +
+                "it's effectively O(n). Reasonable only when disk load is light and seek time isn't the " +
+                "bottleneck.");
         explanations.put("SSTF",
                 "Shortest Seek Time First always services whichever remaining request is closest to the " +
                 "current head position. Minimizes movement at each step, but can starve requests far from " +
-                "the current cluster of activity.");
+                "the current cluster of activity. Time complexity is O(n²) across n requests, since each " +
+                "step scans all remaining requests. Common in lightly loaded systems, but its starvation " +
+                "risk makes it unsuitable for heavy, sustained workloads.");
         explanations.put("SCAN",
                 "The elevator algorithm: the head sweeps fully to one end of the disk, servicing requests " +
                 "along the way, then reverses and sweeps fully to the other end. Avoids starvation, at the " +
-                "cost of some unnecessary movement to reach each boundary.");
+                "cost of some unnecessary movement to reach each boundary. Time complexity is O(n log n) due " +
+                "to sorting requests by track. This is essentially how real HDD firmware schedules seeks — " +
+                "often called the elevator algorithm for exactly that physical resemblance.");
         explanations.put("C-SCAN",
                 "Like SCAN, but never reverses direction — after reaching one end, it jumps straight back " +
                 "to the opposite end and continues the same way. Gives more uniform wait times across all " +
-                "requests, at the cost of the long circular jump.");
+                "requests, at the cost of the long circular jump. Time complexity is O(n log n). Preferred " +
+                "over SCAN in systems needing predictable, uniform response times across all requests, such " +
+                "as database servers handling many concurrent disk-bound queries.");
     }
 
     // ===== Button Actions =====

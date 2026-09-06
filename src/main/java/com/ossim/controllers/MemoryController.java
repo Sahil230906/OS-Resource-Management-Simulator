@@ -160,16 +160,23 @@ public class MemoryController {
     }
 
     private void setupExplanations() {
-        explanations.put("First Fit",
+                explanations.put("First Fit",
                 "Scans partitions in the given order and allocates the process to the first partition " +
-                "large enough to hold it. Fast, but can leave awkward gaps early in memory unused.");
+                "large enough to hold it. Fast, but can leave awkward gaps early in memory unused. " +
+                "Time complexity is O(n) per allocation. Favored when allocation speed matters more than " +
+                "minimizing wasted space, such as simple embedded allocators.");
         explanations.put("Best Fit",
                 "Scans all partitions and picks the smallest one that still fits the process, minimizing " +
-                "leftover space in that block. Tends to create many small, hard-to-use fragments over time.");
+                "leftover space in that block. Tends to create many small, hard-to-use fragments over time. " +
+                "Time complexity is O(n) per allocation, scanning every block to find the closest fit. " +
+                "Suited to memory-constrained systems where minimizing waste per allocation matters more " +
+                "than speed.");
         explanations.put("Worst Fit",
                 "Scans all partitions and picks the largest available one, leaving the biggest possible " +
                 "leftover for future processes. Wastes more memory per allocation, but keeps large blocks " +
-                "in reserve longer.");
+                "in reserve longer. Time complexity is O(n) per allocation. Rarely used in practice since it " +
+                "burns through large blocks quickly, but conceptually useful for understanding fragmentation " +
+                "trade-offs.");
     }
 
     // ===== Button Actions =====

@@ -132,18 +132,27 @@ public class PageController {
     }
 
     private void setupExplanations() {
-        explanations.put("FIFO",
+               explanations.put("FIFO",
                 "First In First Out evicts whichever page has been in memory the longest, regardless of " +
                 "how recently it was used. Simple to implement, but can evict a page that's about to be " +
-                "reused (Belady's anomaly can even make more frames perform worse).");
+                "reused (Belady's anomaly can even make more frames perform worse). Time complexity is O(1) " +
+                "per reference using a queue. Simple but rarely used alone in real systems, since it ignores " +
+                "how recently a page was actually used.");
         explanations.put("LRU",
                 "Least Recently Used evicts the page that hasn't been accessed for the longest time. " +
                 "Exploits temporal locality — pages used recently are likely to be used again soon — but " +
-                "needs extra bookkeeping to track access history.");
+                "needs extra bookkeeping to track access history. True LRU is O(1) per reference with the " +
+                "right data structures (a hash map plus a doubly linked list), though naive implementations " +
+                "are O(n). Real operating systems, including Linux, approximate LRU in hardware via " +
+                "clock/second-chance algorithms rather than tracking exact access order, since perfect LRU " +
+                "is expensive to maintain.");
         explanations.put("Optimal",
                 "Evicts whichever page won't be needed for the longest time in the future, requiring full " +
                 "knowledge of the reference string ahead of time. Provably produces the fewest possible " +
-                "faults, but is impossible to implement in a real OS — used here purely as a benchmark.");
+                "faults, but is impossible to implement in a real OS — used here purely as a benchmark. It " +
+                "requires knowing the entire future reference string, which is impossible in a running " +
+                "system — it exists purely as a theoretical yardstick to measure how close FIFO or LRU come " +
+                "to the best possible result.");
     }
 
     // ===== Button Actions =====
