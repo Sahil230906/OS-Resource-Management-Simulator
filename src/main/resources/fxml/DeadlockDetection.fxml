@@ -42,6 +42,7 @@
                         <TextField fx:id="numResourcesField" prefWidth="60" text="3" />
                         <Button text="Generate Grid" fx:id="generateGridButton" styleClass="dashboard-card" />
                         <Button text="Load Example" fx:id="loadExampleButton" styleClass="dashboard-card" />
+                        <Button text="Reset" fx:id="resetButton" styleClass="dashboard-card" />
                     </HBox>
                 </VBox>
 

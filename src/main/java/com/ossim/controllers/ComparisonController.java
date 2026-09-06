@@ -179,7 +179,7 @@ public class ComparisonController {
         setupComparisonTable();
         addProcessButton.setOnAction(e -> onAddProcess());
         removeProcessButton.setOnAction(e -> onRemoveSelectedProcess());
-        clearButton.setOnAction(e -> processList.clear());
+        clearButton.setOnAction(e -> onClearAll());
         loadExampleButton.setOnAction(e -> onLoadExample());
         compareButton.setOnAction(e -> onCompare());
 
@@ -189,11 +189,11 @@ public class ComparisonController {
         setupMemComparisonTable();
         memAddPartitionButton.setOnAction(e -> onMemAddPartition());
         memRemovePartitionButton.setOnAction(e -> onMemRemoveSelectedPartition());
-        memClearPartitionsButton.setOnAction(e -> memPartitionList.clear());
+        memClearPartitionsButton.setOnAction(e -> onMemClearPartitions());
         memLoadPartitionExampleButton.setOnAction(e -> onMemLoadPartitionExample());
         memAddProcessButton.setOnAction(e -> onMemAddProcess());
         memRemoveProcessButton.setOnAction(e -> onMemRemoveSelectedProcess());
-        memClearProcessesButton.setOnAction(e -> memProcessList.clear());
+        memClearProcessesButton.setOnAction(e -> onMemClearProcesses());
         memLoadProcessExampleButton.setOnAction(e -> onMemLoadProcessExample());
         memCompareButton.setOnAction(e -> onMemCompare());
 
@@ -202,7 +202,7 @@ public class ComparisonController {
         setupPageComparisonTable();
         pageAddRefButton.setOnAction(e -> onPageAddRef());
         pageRemoveRefButton.setOnAction(e -> onPageRemoveSelectedRef());
-        pageClearRefButton.setOnAction(e -> pageReferenceList.clear());
+        pageClearRefButton.setOnAction(e -> onPageClearAll());
         pageLoadRefExampleButton.setOnAction(e -> onPageLoadRefExample());
         pageCompareButton.setOnAction(e -> onPageCompare());
 
@@ -213,7 +213,7 @@ public class ComparisonController {
         diskDirectionSelector.setValue("Toward 0");
         diskAddRequestButton.setOnAction(e -> onDiskAddRequest());
         diskRemoveRequestButton.setOnAction(e -> onDiskRemoveSelectedRequest());
-        diskClearRequestButton.setOnAction(e -> diskRequestList.clear());
+        diskClearRequestButton.setOnAction(e -> onDiskClearAll());
         diskLoadRequestExampleButton.setOnAction(e -> onDiskLoadRequestExample());
         diskCompareButton.setOnAction(e -> onDiskCompare());
     }
@@ -642,6 +642,47 @@ public class ComparisonController {
         );
         diskHeadPositionField.setText("50");
         diskSizeField.setText("199");
+    }
+
+        private void onClearAll() {
+        processList.clear();
+        resultsSection.setVisible(false);
+        resultsSection.setManaged(false);
+        winnerSection.setVisible(false);
+        winnerSection.setManaged(false);
+    }
+
+    private void onMemClearPartitions() {
+        memPartitionList.clear();
+        hideMemResults();
+    }
+
+    private void onMemClearProcesses() {
+        memProcessList.clear();
+        hideMemResults();
+    }
+
+    private void hideMemResults() {
+        memResultsSection.setVisible(false);
+        memResultsSection.setManaged(false);
+        memWinnerSection.setVisible(false);
+        memWinnerSection.setManaged(false);
+    }
+
+    private void onPageClearAll() {
+        pageReferenceList.clear();
+        pageResultsSection.setVisible(false);
+        pageResultsSection.setManaged(false);
+        pageWinnerSection.setVisible(false);
+        pageWinnerSection.setManaged(false);
+    }
+
+    private void onDiskClearAll() {
+        diskRequestList.clear();
+        diskResultsSection.setVisible(false);
+        diskResultsSection.setManaged(false);
+        diskWinnerSection.setVisible(false);
+        diskWinnerSection.setManaged(false);
     }
 
     private void onDiskCompare() {

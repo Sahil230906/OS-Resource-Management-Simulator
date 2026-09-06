@@ -73,7 +73,7 @@ public class PageController {
 
         addRefButton.setOnAction(e -> onAddRef());
         removeRefButton.setOnAction(e -> onRemoveSelectedRef());
-        clearRefButton.setOnAction(e -> referenceList.clear());
+        clearRefButton.setOnAction(e -> onClearAll());
         loadRefExampleButton.setOnAction(e -> onLoadRefExample());
 
         runButton.setOnAction(e -> onRunSimulation());
@@ -255,5 +255,15 @@ public class PageController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+        private void onClearAll() {
+        referenceList.clear();
+        metricsSection.setVisible(false);
+        metricsSection.setManaged(false);
+        timelineSection.setVisible(false);
+        timelineSection.setManaged(false);
+        resultsSection.setVisible(false);
+        resultsSection.setManaged(false);
     }
 }

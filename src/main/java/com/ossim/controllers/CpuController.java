@@ -75,7 +75,7 @@ public class CpuController {
 
         addProcessButton.setOnAction(e -> onAddProcess());
         removeProcessButton.setOnAction(e -> onRemoveSelectedProcess());
-        clearButton.setOnAction(e -> processList.clear());
+        clearButton.setOnAction(e -> onClearAll());
         loadExampleButton.setOnAction(e -> onLoadExample());
         runButton.setOnAction(e -> onRunSimulation());
 
@@ -189,6 +189,16 @@ public class CpuController {
                 new Process("P2", 1, 3, 1),
                 new Process("P3", 2, 7, 3)
         );
+    }
+
+    private void onClearAll() {
+        processList.clear();
+        metricsSection.setVisible(false);
+        metricsSection.setManaged(false);
+        ganttSection.setVisible(false);
+        ganttSection.setManaged(false);
+        resultsSection.setVisible(false);
+        resultsSection.setManaged(false);
     }
 
     private void onRunSimulation() {

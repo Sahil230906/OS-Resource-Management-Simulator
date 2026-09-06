@@ -73,7 +73,7 @@ public class DiskController {
 
         addRequestButton.setOnAction(e -> onAddRequest());
         removeRequestButton.setOnAction(e -> onRemoveSelectedRequest());
-        clearRequestButton.setOnAction(e -> requestList.clear());
+        clearRequestButton.setOnAction(e -> onClearAll());
         loadRequestExampleButton.setOnAction(e -> onLoadRequestExample());
 
         runButton.setOnAction(e -> onRunSimulation());
@@ -265,5 +265,15 @@ public class DiskController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+        private void onClearAll() {
+        requestList.clear();
+        metricsSection.setVisible(false);
+        metricsSection.setManaged(false);
+        diskMapSection.setVisible(false);
+        diskMapSection.setManaged(false);
+        resultsSection.setVisible(false);
+        resultsSection.setManaged(false);
     }
 }

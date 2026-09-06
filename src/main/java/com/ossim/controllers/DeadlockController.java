@@ -24,6 +24,7 @@ public class DeadlockController {
     @FXML private TextField numResourcesField;
     @FXML private Button generateGridButton;
     @FXML private Button loadExampleButton;
+    @FXML private Button resetButton;
     @FXML private Button backButton;
     @FXML private Button runButton;
 
@@ -51,6 +52,7 @@ public class DeadlockController {
     public void initialize() {
         generateGridButton.setOnAction(e -> onGenerateGrid());
         loadExampleButton.setOnAction(e -> onLoadExample());
+        resetButton.setOnAction(e -> onReset());
         runButton.setOnAction(e -> onRunSimulation());
 
         if (backButton != null) {
@@ -155,6 +157,19 @@ public class DeadlockController {
         for (int j = 0; j < 3; j++) {
             availableFields[j].setText(String.valueOf(availableExample[j]));
         }
+    }
+
+    private void onReset() {
+        numProcessesField.setText("5");
+        numResourcesField.setText("3");
+        onGenerateGrid();
+
+        verdictSection.setVisible(false);
+        verdictSection.setManaged(false);
+        matricesSection.setVisible(false);
+        matricesSection.setManaged(false);
+        traceSection.setVisible(false);
+        traceSection.setManaged(false);
     }
 
     private void onRunSimulation() {

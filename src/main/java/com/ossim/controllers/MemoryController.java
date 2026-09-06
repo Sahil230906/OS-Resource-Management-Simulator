@@ -84,12 +84,12 @@ public class MemoryController {
 
         addPartitionButton.setOnAction(e -> onAddPartition());
         removePartitionButton.setOnAction(e -> onRemoveSelectedPartition());
-        clearPartitionsButton.setOnAction(e -> partitionList.clear());
+        clearPartitionsButton.setOnAction(e -> onClearPartitions());
         loadPartitionExampleButton.setOnAction(e -> onLoadPartitionExample());
 
         addMemProcessButton.setOnAction(e -> onAddMemProcess());
         removeMemProcessButton.setOnAction(e -> onRemoveSelectedMemProcess());
-        clearMemProcessesButton.setOnAction(e -> memProcessList.clear());
+        clearMemProcessesButton.setOnAction(e -> onClearMemProcesses());
         loadMemProcessExampleButton.setOnAction(e -> onLoadMemProcessExample());
 
         runButton.setOnAction(e -> onRunSimulation());
@@ -301,5 +301,24 @@ public class MemoryController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+        private void onClearPartitions() {
+        partitionList.clear();
+        hideResults();
+    }
+
+    private void onClearMemProcesses() {
+        memProcessList.clear();
+        hideResults();
+    }
+
+    private void hideResults() {
+        metricsSection.setVisible(false);
+        metricsSection.setManaged(false);
+        memoryMapSection.setVisible(false);
+        memoryMapSection.setManaged(false);
+        resultsSection.setVisible(false);
+        resultsSection.setManaged(false);
     }
 }
