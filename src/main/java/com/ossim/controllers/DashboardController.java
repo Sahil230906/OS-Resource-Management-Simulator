@@ -11,11 +11,12 @@ public class DashboardController {
     @FXML private Button memoryButton;
     @FXML private Button pageButton;
     @FXML private Button diskButton;
+    @FXML private Button deadlockButton;
 
     @FXML
     public void initialize() {
-        // Sidebar navigation wiring — Deadlock will be
-        // connected here as it's built in the next milestone.
+        // All core modules are now wired. M9 covers integration, polish,
+        // and extending Comparison to Memory/Paging/Disk.
         if (cpuButton != null) {
             cpuButton.setOnAction(e -> Main.switchScreen("/fxml/CpuScheduling.fxml"));
         }
@@ -34,6 +35,10 @@ public class DashboardController {
 
         if (diskButton != null) {
             diskButton.setOnAction(e -> Main.switchScreen("/fxml/DiskScheduling.fxml"));
+        }
+
+        if (deadlockButton != null) {
+            deadlockButton.setOnAction(e -> Main.switchScreen("/fxml/DeadlockDetection.fxml"));
         }
 
         System.out.println("Dashboard loaded successfully.");

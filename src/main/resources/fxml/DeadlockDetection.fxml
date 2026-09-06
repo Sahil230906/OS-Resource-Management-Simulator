@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ossim.controllers.DeadlockController"
+            stylesheets="@../css/style.css">
+
+    <!-- ===== TOP STATUS BAR ===== -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="10">
+            <Button text="← Back to Dashboard" fx:id="backButton" styleClass="sidebar-button" />
+            <Label text="🔒 DEADLOCK DETECTION" style="-fx-text-fill: #cdd6f4; -fx-font-size: 15px; -fx-font-weight: bold;" />
+            <HBox HBox.hgrow="ALWAYS" />
+            <Label text="● System Ready" styleClass="status-ready" />
+        </HBox>
+    </top>
+
+    <!-- ===== MAIN WORKSPACE ===== -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #1e1e2e; -fx-background: #1e1e2e;">
+            <VBox styleClass="main-workspace" spacing="20">
+
+                <Label text="Deadlock Detection — Banker's Algorithm" styleClass="workspace-title" />
+                <Label text="Set dimensions, fill in Allocation, Max, and Available, then run the safety algorithm" styleClass="workspace-subtitle" />
+
+                <!-- ===== DIMENSIONS ===== -->
+                <VBox spacing="10">
+                    <Label text="Dimensions" styleClass="card-title" />
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="Number of Processes:" styleClass="card-subtitle" />
+                        <TextField fx:id="numProcessesField" prefWidth="60" text="5" />
+                        <Label text="Number of Resource Types:" styleClass="card-subtitle" />
+                        <TextField fx:id="numResourcesField" prefWidth="60" text="3" />
+                        <Button text="Generate Grid" fx:id="generateGridButton" styleClass="dashboard-card" />
+                        <Button text="Load Example" fx:id="loadExampleButton" styleClass="dashboard-card" />
+                    </HBox>
+                </VBox>
+
+                <!-- ===== ALLOCATION MATRIX ===== -->
+                <VBox spacing="10">
+                    <Label text="Allocation Matrix" styleClass="card-title" />
+                    <VBox fx:id="allocationGridContainer" styleClass="dashboard-card" style="-fx-padding: 15;" />
+                </VBox>
+
+                <!-- ===== MAX MATRIX ===== -->
+                <VBox spacing="10">
+                    <Label text="Max Matrix" styleClass="card-title" />
+                    <VBox fx:id="maxGridContainer" styleClass="dashboard-card" style="-fx-padding: 15;" />
+                </VBox>
+
+                <!-- ===== AVAILABLE VECTOR ===== -->
+                <VBox spacing="10">
+                    <Label text="Available Vector" styleClass="card-title" />
+                    <HBox fx:id="availableFieldsContainer" spacing="10" styleClass="dashboard-card" style="-fx-padding: 15;" />
+                </VBox>
+
+                <HBox>
+                    <Button text="▶ RUN SIMULATION" fx:id="runButton" style="-fx-background-color: #89b4fa; -fx-text-fill: #1e1e2e; -fx-font-weight: bold; -fx-padding: 10 20 10 20; -fx-background-radius: 6; -fx-cursor: hand;" />
+                </HBox>
+
+                <!-- ===== VERDICT ===== -->
+                <VBox spacing="10" fx:id="verdictSection" visible="false" managed="false">
+                    <Label text="Result" styleClass="card-title" />
+                    <VBox styleClass="dashboard-card" spacing="6">
+                        <Label fx:id="verdictLabel" text="-" styleClass="workspace-title" />
+                        <Label fx:id="sequenceLabel" text="-" styleClass="card-subtitle" wrapText="true" />
+                    </VBox>
+                </VBox>
+
+                <!-- ===== MATRICES DISPLAY ===== -->
+                <VBox spacing="10" fx:id="matricesSection" visible="false" managed="false">
+                    <Label text="Allocation, Max, and Need" styleClass="card-title" />
+                    <ScrollPane fitToHeight="true" style="-fx-background-color: #313244; -fx-background: #313244;" styleClass="dashboard-card">
+                        <HBox fx:id="matricesContainer" style="-fx-padding: 15;" />
+                    </ScrollPane>
+                </VBox>
+
+                <!-- ===== SAFE SEQUENCE TRACE ===== -->
+                <VBox spacing="10" fx:id="traceSection" visible="false" managed="false">
+                    <Label text="Safe Sequence Trace" styleClass="card-title" />
+                    <ScrollPane fitToHeight="true" style="-fx-background-color: #313244; -fx-background: #313244;" styleClass="dashboard-card">
+                        <HBox fx:id="traceContainer" style="-fx-padding: 15;" />
+                    </ScrollPane>
+                </VBox>
+
+                <!-- ===== EXPLANATION ===== -->
+                <VBox spacing="10" styleClass="dashboard-card">
+                    <Label text="Algorithm Explanation" styleClass="card-title" />
+                    <Label text="The Banker's Algorithm checks whether the current state of the system is safe — whether there exists some order in which every process could finish, given only its remaining Need and the resources currently Available. It repeatedly looks for a process whose Need fits within what's Available, lets it finish and release its Allocation back, and repeats. If every process can eventually finish this way, the state is safe; if a full pass finds no process that can proceed, the remaining processes could deadlock."
+                           wrapText="true" styleClass="card-subtitle" />
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
