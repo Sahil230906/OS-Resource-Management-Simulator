@@ -95,9 +95,13 @@
                     </ScrollPane>
                 </VBox>
 
-                <!-- ===== RESULTS TABLE ===== -->
+                 <!-- ===== RESULTS TABLE ===== -->
                 <VBox spacing="10" fx:id="resultsSection" visible="false" managed="false">
-                    <Label text="Process Statistics" styleClass="card-title" />
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Process Statistics" styleClass="card-title" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Button text="⬇ Export CSV" fx:id="exportCsvButton" styleClass="dashboard-card" />
+                    </HBox>
                     <TableView fx:id="resultsTable" prefHeight="180">
                         <columns>
                             <TableColumn fx:id="colResultId" text="PID" prefWidth="90" />

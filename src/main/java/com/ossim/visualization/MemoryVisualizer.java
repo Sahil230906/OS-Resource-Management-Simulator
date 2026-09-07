@@ -16,26 +16,17 @@ import java.util.Map;
 
 public class MemoryVisualizer {
 
-    // Same idea as GanttChartRenderer's PALETTE — colors are assigned to
-    // process IDs dynamically as they're first encountered, never hardcoded.
     private static final String[] PALETTE = {
             "#89b4fa", "#f38ba8", "#a6e3a1", "#fab387",
             "#cba6f7", "#f9e2af", "#94e2d5", "#eba0ac"
     };
 
-    // Free blocks always get this neutral color, since they belong to no process.
     private static final String FREE_COLOR = "#45475a";
 
     private static final double BLOCK_WIDTH = 260;
     private static final double PIXELS_PER_UNIT_SIZE = 0.3;
     private static final double MIN_BLOCK_HEIGHT = 40;
 
-    /**
-     * Builds a vertical memory map from the final block state after an
-     * allocation run. Nothing here is hardcoded to any specific algorithm,
-     * process, or partition layout — entirely driven by the MemoryBlock
-     * list passed in.
-     */
     public static Pane render(List<MemoryBlock> blocks) {
 
         VBox container = new VBox(2);
@@ -73,6 +64,8 @@ public class MemoryVisualizer {
             StackPane blockPane = new StackPane(rect, label);
             container.getChildren().add(blockPane);
         }
+
+        AnimationUtil.revealSequentially(container.getChildren());
 
         return container;
     }

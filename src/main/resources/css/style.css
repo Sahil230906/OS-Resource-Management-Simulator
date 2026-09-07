@@ -110,3 +110,20 @@ Button.dashboard-card {
 Button.dashboard-card:hover {
   -fx-background-color: #45475a;
 }
+
+/* ===== Module cards (Dashboard only — clickable, with accent hover) ===== */
+.module-card {
+  -fx-background-color: #313244;
+  -fx-background-radius: 12;
+  -fx-padding: 20;
+  -fx-cursor: hand;
+  -fx-border-color: transparent;
+  -fx-border-width: 2;
+  -fx-border-radius: 12;
+}
+
+.module-card:hover {
+  -fx-background-color: #3a3d52;
+  -fx-border-color: #89b4fa;
+  -fx-effect: dropshadow(gaussian, rgba(137, 180, 250, 0.35), 16, 0.3, 0, 0);
+}

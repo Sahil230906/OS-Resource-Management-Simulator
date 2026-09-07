@@ -5,6 +5,7 @@ import com.ossim.algorithms.cpu.*;
 import com.ossim.models.CpuSchedulingResult;
 import com.ossim.models.Process;
 import com.ossim.models.ProcessResult;
+import com.ossim.services.CsvExportService;
 import com.ossim.visualization.GanttChartRenderer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,7 +16,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CpuController {
@@ -59,6 +63,7 @@ public class CpuController {
     @FXML private TableColumn<ProcessResult, Integer> colResultWaiting;
     @FXML private TableColumn<ProcessResult, Integer> colResultTurnaround;
     @FXML private TableColumn<ProcessResult, Integer> colResultResponse;
+    @FXML private Button exportCsvButton;
 
     // ===== Explanation =====
     @FXML private Label explanationLabel;
@@ -78,6 +83,7 @@ public class CpuController {
         clearButton.setOnAction(e -> onClearAll());
         loadExampleButton.setOnAction(e -> onLoadExample());
         runButton.setOnAction(e -> onRunSimulation());
+        exportCsvButton.setOnAction(e -> onExportCsv());
 
         if (backButton != null) {
             backButton.setOnAction(e -> Main.switchScreen("/fxml/Dashboard.fxml"));
@@ -272,6 +278,34 @@ public class CpuController {
         resultsTable.setItems(FXCollections.observableArrayList(result.getProcessResults()));
         resultsSection.setVisible(true);
         resultsSection.setManaged(true);
+    }
+
+    private void onExportCsv() {
+        List<ProcessResult> results = resultsTable.getItems();
+
+        if (results.isEmpty()) {
+            showError("Run a simulation before exporting results.");
+            return;
+        }
+
+        List<String> headers = Arrays.asList(
+                "PID", "Arrival", "Burst", "Completion", "Waiting", "Turnaround", "Response");
+
+        List<List<String>> rows = new ArrayList<>();
+        for (ProcessResult r : results) {
+            rows.add(Arrays.asList(
+                    r.getProcessId(),
+                    String.valueOf(r.getArrivalTime()),
+                    String.valueOf(r.getBurstTime()),
+                    String.valueOf(r.getCompletionTime()),
+                    String.valueOf(r.getWaitingTime()),
+                    String.valueOf(r.getTurnaroundTime()),
+                    String.valueOf(r.getResponseTime())
+            ));
+        }
+
+        CsvExportService.exportToCsv(
+                exportCsvButton.getScene().getWindow(), "cpu_scheduling_results.csv", headers, rows);
     }
 
     private void showError(String message) {

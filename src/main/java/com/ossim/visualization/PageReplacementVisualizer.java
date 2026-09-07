@@ -25,12 +25,6 @@ public class PageReplacementVisualizer {
     private static final String HIT_COLOR = "#a6e3a1";
     private static final String FAULT_COLOR = "#f38ba8";
 
-    /**
-     * Builds a horizontal step-by-step timeline from a full algorithm run.
-     * Every step is visible at once — correctness must be provable without
-     * clicking through anything. Nothing here is hardcoded to any specific
-     * algorithm or reference string; entirely driven by the PageStepResult list.
-     */
     public static Pane render(List<PageStepResult> steps) {
 
         HBox container = new HBox(STEP_SPACING);
@@ -49,7 +43,6 @@ public class PageReplacementVisualizer {
             pageLabel.setStyle("-fx-fill: #cdd6f4; -fx-font-weight: bold; -fx-font-size: 12px;");
             column.getChildren().add(pageLabel);
 
-            // One rectangle per frame slot, in order — empty slots show a dash
             for (Integer framePage : step.getFrameState()) {
                 boolean filled = framePage != null;
 
@@ -77,6 +70,8 @@ public class PageReplacementVisualizer {
 
             container.getChildren().add(column);
         }
+
+        AnimationUtil.revealSequentially(container.getChildren());
 
         return container;
     }
