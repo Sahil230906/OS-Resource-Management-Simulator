@@ -15,9 +15,8 @@ public class DeadlockVisualizer {
 
     /**
      * Renders the Allocation, Max, and Need matrices side by side as
-     * labeled grids. Entirely driven by the matrices passed in — row/column
-     * counts come from the data, nothing hardcoded to a specific process
-     * or resource count.
+     * labeled grids. Static data display — nothing here represents a
+     * sequence of events, so no reveal animation applies.
      */
     public static Pane renderMatrices(int numProcesses, int numResources,
                                        List<List<Integer>> allocation,
@@ -70,9 +69,8 @@ public class DeadlockVisualizer {
     /**
      * Renders the safe-sequence trace: the starting Work vector, then one
      * box per process that finished, each showing the Work vector after it
-     * released its resources. If the run was unsafe, steps will be empty
-     * and only the starting box is shown — the controller is responsible
-     * for surfacing the "unsafe" verdict as text separately.
+     * released its resources. Boxes pop in one after another, mirroring
+     * the actual order the algorithm found them.
      */
     public static Pane renderSafeSequence(List<BankersStepResult> steps, List<Integer> available) {
 
@@ -82,6 +80,8 @@ public class DeadlockVisualizer {
         for (BankersStepResult step : steps) {
             container.getChildren().add(buildStepBox(step));
         }
+
+        AnimationUtil.revealSequentially(container.getChildren());
 
         return container;
     }
