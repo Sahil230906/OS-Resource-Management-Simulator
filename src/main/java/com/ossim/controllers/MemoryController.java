@@ -1,5 +1,5 @@
 package com.ossim.controllers;
-
+import com.ossim.services.DemoModeState;
 import com.ossim.Main;
 import com.ossim.algorithms.memory.*;
 import com.ossim.models.MemoryAllocationResult;
@@ -96,6 +96,12 @@ public class MemoryController {
 
         if (backButton != null) {
             backButton.setOnAction(e -> Main.switchScreen("/fxml/Dashboard.fxml"));
+        }
+
+        if (DemoModeState.isActive()) {
+            onLoadPartitionExample();
+            onLoadMemProcessExample();
+            onRunSimulation();
         }
     }
 

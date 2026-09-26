@@ -1,5 +1,5 @@
 package com.ossim.controllers;
-
+import com.ossim.services.DemoModeState;
 import com.ossim.Main;
 import com.ossim.algorithms.deadlock.BankersAlgorithm;
 import com.ossim.models.BankersResult;
@@ -59,9 +59,14 @@ public class DeadlockController {
             backButton.setOnAction(e -> Main.switchScreen("/fxml/Dashboard.fxml"));
         }
 
-        // Build an initial grid matching the default field values, so the
+         // Build an initial grid matching the default field values, so the
         // screen isn't empty on first load
         onGenerateGrid();
+
+        if (DemoModeState.isActive()) {
+            onLoadExample();
+            onRunSimulation();
+        }
     }
 
     private void onGenerateGrid() {

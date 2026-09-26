@@ -1,5 +1,6 @@
 package com.ossim.controllers;
-
+import com.ossim.models.Process;
+import com.ossim.services.DemoModeState;
 import com.ossim.Main;
 import com.ossim.algorithms.cpu.*;
 import com.ossim.algorithms.memory.*;
@@ -9,7 +10,7 @@ import com.ossim.algorithms.disk.SCAN;
 import com.ossim.algorithms.disk.CSCAN;
 import com.ossim.algorithms.disk.DiskSchedulingAlgorithm;
 import com.ossim.models.*;
-import com.ossim.models.Process;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -215,7 +216,19 @@ public class ComparisonController {
         diskRemoveRequestButton.setOnAction(e -> onDiskRemoveSelectedRequest());
         diskClearRequestButton.setOnAction(e -> onDiskClearAll());
         diskLoadRequestExampleButton.setOnAction(e -> onDiskLoadRequestExample());
-        diskCompareButton.setOnAction(e -> onDiskCompare());
+                diskCompareButton.setOnAction(e -> onDiskCompare());
+
+        if (DemoModeState.isActive()) {
+            onLoadExample();
+            onCompare();
+            onMemLoadPartitionExample();
+            onMemLoadProcessExample();
+            onMemCompare();
+            onPageLoadRefExample();
+            onPageCompare();
+            onDiskLoadRequestExample();
+            onDiskCompare();
+        }
     }
 
     // ===================================================================

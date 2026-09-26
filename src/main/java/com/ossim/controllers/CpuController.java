@@ -1,5 +1,5 @@
 package com.ossim.controllers;
-
+import com.ossim.services.DemoModeState;
 import com.ossim.Main;
 import com.ossim.algorithms.cpu.*;
 import com.ossim.models.CpuSchedulingResult;
@@ -94,6 +94,11 @@ public class CpuController {
         quantumLabel.setManaged(false);
         quantumField.setVisible(false);
         quantumField.setManaged(false);
+
+        if (DemoModeState.isActive()) {
+            onLoadExample();
+            onRunSimulation();
+        }
     }
 
     private void setupProcessTable() {

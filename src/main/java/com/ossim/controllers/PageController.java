@@ -1,5 +1,5 @@
 package com.ossim.controllers;
-
+import com.ossim.services.DemoModeState;
 import com.ossim.Main;
 import com.ossim.algorithms.paging.*;
 import com.ossim.models.PageReplacementResult;
@@ -78,10 +78,16 @@ public class PageController {
 
         runButton.setOnAction(e -> onRunSimulation());
 
-        if (backButton != null) {
+                if (backButton != null) {
             backButton.setOnAction(e -> Main.switchScreen("/fxml/Dashboard.fxml"));
         }
+
+        if (DemoModeState.isActive()) {
+            onLoadRefExample();
+            onRunSimulation();
+        }
     }
+    
 
     private void setupReferenceTable() {
         colPageNumber.setCellValueFactory(new PropertyValueFactory<>("pageNumber"));

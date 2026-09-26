@@ -1,5 +1,5 @@
 package com.ossim.controllers;
-
+import com.ossim.services.DemoModeState;
 import com.ossim.Main;
 import com.ossim.algorithms.disk.*;
 import com.ossim.models.DiskRequest;
@@ -80,6 +80,11 @@ public class DiskController {
 
         if (backButton != null) {
             backButton.setOnAction(e -> Main.switchScreen("/fxml/Dashboard.fxml"));
+        }
+
+        if (DemoModeState.isActive()) {
+            onLoadRequestExample();
+            onRunSimulation();
         }
     }
 
